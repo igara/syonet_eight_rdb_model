@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("RDB_URL")
+  referentialIntegrity = "prisma"
+}
+
+model rss {
+  id          Int       @id @default(autoincrement())
+  created   DateTime  @default(now())
+  updated   DateTime  @updatedAt
+  title       String    @db.VarChar(255)
+  description String    @db.VarChar(255)
+  date        DateTime
+  url         String    @db.VarChar(255)
+}
